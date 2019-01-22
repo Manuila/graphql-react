@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { List } from 'immutable';
+import { Query } from 'react-apollo';
 import { getPosts, updatePost } from '../../actions/posts';
 import PostsList from './__list/PostsList';
 import PostHeader from './__header/PostHeader';
@@ -10,6 +11,7 @@ import Spinner from '../../common/Spinner/Spinner';
 import { getAllPosts } from '../../selectors/posts';
 
 import './posts.scss';
+import { GET_POSTS } from '../../api/posts';
 
 
 class Posts extends Component {
@@ -19,27 +21,8 @@ class Posts extends Component {
   };
 
   componentDidMount() {
-    this.fetchPosts();
+
   }
-
-  /**
-   * @param {boolean} arePostsLoading
-   * */
-  toggleArePostsLoading = arePostsLoading => this.setState({ arePostsLoading });
-
-  fetchPosts = async () => {
-    const { page } = this.state;
-    const { dispatchGetPosts } = this.props;
-    this.toggleArePostsLoading(true);
-    try {
-      await dispatchGetPosts(DEFAULT_POSTS_COUNT, page);
-      this.setState({ page: page + 1 });
-    } catch (e) {
-      throw e;
-    } finally {
-      this.toggleArePostsLoading(false);
-    }
-  };
 
   /**
    * @param {Immutable.Map} post
@@ -81,24 +64,28 @@ class Posts extends Component {
   };
 
   render() {
-    const { arePostsLoading } = this.state;
-    const { posts } = this.props;
     return (
       <article className="todo-component">
         <div className="todo-component__wrapper">
           <PostHeader onPostAdd={this.addPost} />
-          {
-            arePostsLoading
-              ? <Spinner />
-              : (
+          <Query query={GET_POSTS}>
+            {({ loading, error, data }) => {
+              if (loading) {
+                return <Spinner />;
+              }
+              if (error) {
+                return <p>Error :(</p>;
+              }
+              return (
                 <PostsList
-                  posts={posts}
+                  posts={data}
                   onPostLiked={this.handlePostLiked}
                   onPostPublished={this.handlePostPublished}
                   refreshPosts={this.refreshPosts}
                 />
-              )
-            }
+              );
+            }}
+          </Query>
         </div>
       </article>
     );
