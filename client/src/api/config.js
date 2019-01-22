@@ -1,3 +1,3 @@
-const URL = 'http://localhost:3000/graphql';
+const URI = 'http://127.0.0.1:3000/graphql';
 
-export default URL;
+export default URI;

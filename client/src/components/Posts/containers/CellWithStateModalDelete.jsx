@@ -1,25 +1,17 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { Mutation } from 'react-apollo';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import Button from '../../../common/Button/Button';
 import PopupWindow from '../../../common/Modal/PopupWindow';
 import ModalStateContainer from '../../../common/Modal/containers/ModalStateContainer';
+import { DELETE_POST, GET_POSTS } from '../../../api/posts';
 
 
 class CellWithStateModalDelete extends PureComponent {
-  delete = async () => {
-    const { id, deleteItem, toggleIsOpenModal } = this.props;
-    try {
-      await deleteItem(id);
-    } catch (e) {
-      throw e;
-    } finally {
-      toggleIsOpenModal(false);
-    }
-  };
 
   render() {
-    const { isOpenModal, toggleIsOpenModal } = this.props;
+    const { isOpenModal, toggleIsOpenModal, id } = this.props;
     return (
       <td className="table-posts__cell table-posts__cell-body">
         <Button
@@ -31,15 +23,29 @@ class CellWithStateModalDelete extends PureComponent {
         </Button>
         {
           isOpenModal &&
-          <PopupWindow
-            hasCloseIcon
-            className="modal-modal"
-            title="Are you serious?"
-            primaryButtonLabel="Ok"
-            primaryButtonAction={() => this.delete()}
-            secondaryButtonLabel="Cancel"
-            secondaryButtonAction={() => toggleIsOpenModal(false)}
-          />
+          <Mutation
+            mutation={DELETE_POST}
+            update={(cache, { data: { removePost } }) => {
+              const { posts } = cache.readQuery({ query: GET_POSTS });
+              cache.writeQuery({
+                query: GET_POSTS,
+                data: { posts },
+                //data: { posts: posts.concat([removePost]) },
+              });
+            }}
+            >
+            {removePost => (
+              <PopupWindow
+                hasCloseIcon
+                className="modal-modal"
+                title="Are you serious?"
+                primaryButtonLabel="Ok"
+                primaryButtonAction={() => removePost(id)}
+                secondaryButtonLabel="Cancel"
+                secondaryButtonAction={() => toggleIsOpenModal(false)}
+              />
+              )}
+          </Mutation>
         }
       </td>
     );
@@ -48,8 +54,8 @@ class CellWithStateModalDelete extends PureComponent {
 
 CellWithStateModalDelete.propTypes = {
   id: PropTypes.string.isRequired,
-  deleteItem: PropTypes.func.isRequired,
   toggleIsOpenModal: PropTypes.func.isRequired,
   isOpenModal: PropTypes.bool.isRequired,
 };
+
 export default ModalStateContainer(CellWithStateModalDelete);

@@ -10,7 +10,7 @@ const commonConfig = {
     filename: 'bundle.js',
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.mjs', '.js', '.jsx'],
   },
   module: {
     rules: [

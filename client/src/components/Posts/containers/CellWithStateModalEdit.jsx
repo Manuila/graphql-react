@@ -21,12 +21,14 @@ function CellWithStateModalEdit({
         edit
       </Button>
       {
-          isOpenModal &&
+        isOpenModal
+        && (
           <FormEdit
             id={id}
             toggleIsOpen={toggleIsOpenModal}
           />
-        }
+        )
+      }
     </td>
   );
 }

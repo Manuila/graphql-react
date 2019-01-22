@@ -60,8 +60,8 @@ class PostsList extends PureComponent {
                       {
                     posts.map((post, i) => (
                       <Post
-                        id={post.get('_id')}
-                        key={post.get('_id')}
+                        id={post.get('id')}
+                        key={post.get('id')}
                         index={i + 1}
                         title={post.get('title')}
                         description={post.get('description')}
