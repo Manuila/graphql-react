@@ -1,0 +1,54 @@
+.modal {
+  color: #404040;
+  position: fixed;
+  background: white;
+  width: auto;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 3px;
+
+  &-title {
+    font-size: 1.5rem;
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid gray;
+    margin-bottom: 20px;
+  }
+
+  &-footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &-button {
+
+    &:first-child {
+      margin-right: 10px;
+    }
+
+    &-close {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      text-decoration: none;
+      background: #fff;
+      outline: none;
+      line-height: 1;
+      font-size: 1.5rem;
+      color: #aaaaaa;
+      font-weight: bold;
+      border: none;
+      border-radius: 0px;
+      text-transform: capitalize;
+      cursor: pointer;
+      padding: 0px;
+    }
+  }
+}

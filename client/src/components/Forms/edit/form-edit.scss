@@ -1,0 +1,18 @@
+.form-edit {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+
+  &-input {
+    width: 100%;
+  }
+
+  &-textarea{
+    width: 100%;
+  }
+
+  &__row{
+    padding: 10px 0;
+  }
+
+}

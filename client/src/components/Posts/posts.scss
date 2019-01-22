@@ -1,0 +1,113 @@
+.todo-component {
+
+  &__wrapper {
+    padding: 0px 200px;
+  }
+
+  &__header-title {
+    text-transform: uppercase;
+    text-align: center;
+    padding: 10px 0px;
+  }
+
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    font-size: 24px;
+    background: #418bca;
+    color: #fff;
+  }
+
+  &__header-title {
+    padding: 10px 0px;
+  }
+
+  &__posts {
+    padding: 10px 0px;
+    background-color: #fff;
+  }
+
+}
+
+.table-posts {
+
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  &__cell-head {
+    font-weight: 600;
+    border-bottom: 2px solid #dddddd;
+    text-align: left;
+  }
+
+  &__cell {
+    padding: 5px 10px;
+    overflow: auto;
+    max-width: 200px;
+    vertical-align: middle;
+  }
+
+  &__cell:last-child {
+    text-align: center;
+  }
+
+  &-body {
+    border-bottom: 1px solid #dddddd;
+  }
+
+  &__spinner {
+    color: black;
+    position: static;
+    transform: none;
+    font-size: 16px;
+  }
+  &__button {
+    text-align: center;
+  }
+
+}
+
+.table {
+
+  &__row-body {
+    font-size: 14px;
+  }
+
+  &__row-body:nth-child(odd) {
+    background: #f2f2f2;
+  }
+
+}
+
+// .table__row-body:nth-child(even) .table-posts__cell-body > .btn:hover:hover {
+//   background-color: #f2f2f2;
+// }
+
+.no-posts {
+  text-align: center;
+  padding: 20px;
+  font-size: 24px;
+  color: #000;
+}
+
+.button-like{
+  padding: 0;
+  color: #d8534e;
+  background: none;
+  outline: none;
+}
+.icon-like {
+  padding: 0;
+}
+
+.icon-like_active {
+  color: #5db85b;
+}
+
+.input {
+  cursor: pointer;
+}

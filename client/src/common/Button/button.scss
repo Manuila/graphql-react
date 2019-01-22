@@ -1,0 +1,67 @@
+.button {
+  border: 1px solid #ffffff;
+  border-radius: 3px;
+  color: #fff;
+  padding: 10px 15px;
+  font-size: 14px;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: color 0.4s, background-color 0.4s;
+
+  &-icon {
+    display: inline-block;
+    font-weight: 400;
+    &::after {
+      content: "\2000";
+    }
+  }
+
+  &_cyan {
+    background-color: #18bc9c;
+    &:hover {
+      background-color: #fff;
+      color: #18bc9c;
+      border: 1px solid #18bc9c;
+    }
+  }
+
+  &-edit {
+    background-color:#208fed;
+    &:hover {
+      background-color:#fff;
+      color:#208fed;
+      border: 1px solid #208fed;
+    }
+  }
+
+  &-del {
+    background-color: #e74c3c;
+    &:hover {
+      background-color: #fff;
+      color: #e74c3c;
+      border: 1px solid #e74c3c;
+    }
+  }
+
+  &-cancel {
+    background-color: #d8534e;
+    &:hover{
+      background-color: #fff;
+      color: #d8534e;
+      border: 1px solid #d8534e;
+    }
+  }
+
+  &-save {
+    background-color: #5db85b;
+    &:hover{
+      background-color: #fff;
+      color: #5db85b;
+      border: 1px solid #5db85b;
+    }
+  }
+
+  &_disabled {
+
+  }
+}

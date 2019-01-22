@@ -1,0 +1,31 @@
+@import './styles/reset.scss';
+
+html{
+  box-sizing: border-box;
+  height:100%;
+}
+
+*, *:before, *:after{
+  box-sizing: inherit;
+}
+
+.page{
+
+  font: 12px "Roboto Condensed", sans-serif;
+  color: #000;
+  background: #fff;
+  display: flex;
+
+  &__wrapper {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/*@media (max-width: 860px) {
+  .todo-component__wrapper {
+    padding: 0px 10px;
+  }
+}*/

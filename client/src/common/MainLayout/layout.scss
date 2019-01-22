@@ -1,0 +1,20 @@
+.page{
+
+  &__body {
+    flex: 1 0 auto;
+    padding: 50px 0;
+    background-color: #bfc3ce;
+  }
+
+  &__header, &__footer {
+    flex-shrink: 0;
+    color: #fff;
+    background-color: #878b94;
+    font-size: 16px;
+  }
+
+  &__footer{
+    text-align: center;
+    padding: 10px 0;
+  }
+}
