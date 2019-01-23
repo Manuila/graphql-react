@@ -1,80 +1,58 @@
-import { GraphQLNonNull, GraphQLString, GraphQLBoolean } from 'graphql';
+import {GraphQLNonNull, GraphQLString, GraphQLBoolean, GraphQLID} from 'graphql';
 import PostType from '../types';
-import Post from '../../models/post';
+import MongoDBPostDAO from '../../dao/MongoDBPostDAO';
+import PostService from '../../services/PostService';
+import config from '../../config';
+
+
+const postDAO = new MongoDBPostDAO(config.MONGO_URI);
+const postService = new PostService(postDAO);
 
 
 const addPost = {
   type: PostType,
   args: {
-    title: {
-      type: new GraphQLNonNull(GraphQLString),
-    },
-    description: {
-      type: GraphQLString,
-    }
+    title: { type: new GraphQLNonNull(GraphQLString) },
+    description: { type: GraphQLString }
   },
-  resolve(root, params) {
-    const post = new Post(params);
-    const newPost = post.save();
-    if (!newPost) {
-      throw new Error('Error');
-    }
-    return newPost;
-  }
-};
 
+  resolve: (root, params) => postService.add(params)
+};
 
 const removePost = {
   type: PostType,
   args: {
-    id: {
-      type: new GraphQLNonNull(GraphQLString)
-    }
+    id: { type: new GraphQLNonNull(GraphQLID) }
   },
-  resolve(root, params) {
-    const removedPost = Post.findByIdAndRemove(params.id).exec();
-    if (!removedPost) {
-      throw new Error('Error');
-    }
-    return removedPost;
-  }
-};
 
+  resolve: (root, params) => postService.remove(params.id)
+};
 
 const updatePost = {
   type: PostType,
   args: {
-    id: {
-      type: new GraphQLNonNull(GraphQLString)
-    },
-    title: {
-      type: new GraphQLNonNull(GraphQLString),
-    },
-    description: {
-      type: new GraphQLNonNull(GraphQLString),
-    },
-    isPublished: {
-      type: new GraphQLNonNull(GraphQLBoolean),
-    },
-    isLiked: {
-      type: new GraphQLNonNull(GraphQLBoolean),
-    },
+    id: { type: new GraphQLNonNull(GraphQLID) },
+    title: { type: GraphQLString },
+    description: { type: GraphQLString },
+    isPublished: { type: GraphQLBoolean },
+    isLiked: { type: GraphQLBoolean }
   },
-  resolve(root, params) {
-    return Post.update({
-      _id: params.id
-    },
-    {
-      title: params.title,
-      description: params.description,
-      isPublished: params.isPublished,
-      isLiked: params.isLiked,
-    });
-  }
+
+  resolve: (root, params) => postService.update(params)
+};
+
+const getPostById = {
+  type: PostType,
+  args: {
+    id: { type: new GraphQLNonNull(GraphQLID) }
+  },
+
+  resolve: (root, params) => postService.getById(params.id)
 };
 
 export default {
   addPost,
   removePost,
   updatePost,
+  getPostById,
 };

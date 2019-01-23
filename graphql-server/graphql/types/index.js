@@ -3,7 +3,7 @@ import {
   GraphQLNonNull, 
   GraphQLID, 
   GraphQLString,
-  GraphQLBoolean,
+  GraphQLBoolean
 }  from 'graphql';
 
 import { GraphQLDate } from 'graphql-iso-date';
@@ -13,24 +13,12 @@ const postType = new GraphQLObjectType({
   name: 'post',
   fields: function() {
     return {
-      id: {
-        type: new GraphQLNonNull(GraphQLID)
-      },
-      title: {
-        type: new GraphQLNonNull(GraphQLString)
-      },
-      description: {
-        type: GraphQLString
-      },
-      date: {
-        type: new GraphQLNonNull(GraphQLDate)
-      },
-      isPublished: {
-        type: new GraphQLNonNull(GraphQLBoolean)
-      },
-      isLiked: {
-        type: new GraphQLNonNull(GraphQLBoolean)
-      },
+      id: { type: new GraphQLNonNull(GraphQLID) },
+      title: { type: new GraphQLNonNull(GraphQLString) },
+      description: { type: GraphQLString },
+      date: { type: new GraphQLNonNull(GraphQLDate) },
+      isPublished: { type: new GraphQLNonNull(GraphQLBoolean) },
+      isLiked: { type: new GraphQLNonNull(GraphQLBoolean) },
     };
   },
 });

@@ -1,12 +1,8 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import graphqlHTTP from 'express-graphql';
 import cors from 'cors';
 import postSchema from './graphql/index';
 import config from './config';
-
-//must fix it
-mongoose.connect(config.MONGO_URI);
 
 const app = express();
 
