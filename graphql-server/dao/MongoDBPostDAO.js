@@ -12,7 +12,7 @@ export default class MongoDBPostDAO extends PostDAO {
   get connect() {
     return mongoose.connect(this.mongoURI);
   }
-
+  
   /**
    * @returns {Promise}
    */
@@ -29,8 +29,7 @@ export default class MongoDBPostDAO extends PostDAO {
         })
         .finally(() => {
           mongoose.connection.close();
-        })
-      ;
+        });
     });
   }
 
@@ -85,12 +84,14 @@ export default class MongoDBPostDAO extends PostDAO {
       this.connect.then(() => Post
         .findByIdAndUpdate(
           post.id,
-          {
-            title: post.title,
-            description: post.description,
-            isPublished: post.isPublished,
-            isLiked: post.isLiked
-          }
+          { 
+            $set: {
+              title: post.title,
+              description: post.description,
+              isLiked: post.isLiked,
+              isPublished: post.isPublished
+            }},
+          { new: true }
         ))
         .then((result) => {
           resolve(result);
