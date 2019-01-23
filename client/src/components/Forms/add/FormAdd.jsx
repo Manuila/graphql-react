@@ -50,8 +50,6 @@ class FormAdd extends PureComponent {
     this.addPost();
   };
 
-
-
   render() {
     const { toggleIsOpen } = this.props;
     const { isLoading } = this.state;

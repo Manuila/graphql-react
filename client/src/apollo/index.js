@@ -14,6 +14,10 @@ export const apolloClient = new ApolloClient({
 });
 
 
+/**
+  * @param {String} id
+  * @returns {Promise}
+*/
 export const deletePost = id => {
   return new Promise((resolve, reject) => {
     apolloClient
@@ -37,6 +41,10 @@ export const deletePost = id => {
   });
 };
 
+/**
+ * @param {Object} post
+ * @returns {Promise}
+*/
 export const addPost = (title, description) => {
   return new Promise((resolve, reject) => {
     apolloClient
@@ -44,7 +52,7 @@ export const addPost = (title, description) => {
         mutation: ADD_POST,
         variables: {
           title,
-          description
+          description,
         },
         update: (cache, { data: { addPost } }) => {
           const { posts } = cache.readQuery({ query: GET_POSTS });
@@ -52,17 +60,21 @@ export const addPost = (title, description) => {
             query: GET_POSTS,
             data: { posts: [addPost].concat(posts) },
           });
-        }
+        },
       })
       .then((result) => {
         resolve(result);
       })
       .catch((error) => {
         reject(error);
-      })
+      });
   });
 };
 
+/**
+  * @param {Object} post
+  * @returns {Promise}
+*/
 export const updatePost = (updatedPost) => {
   return new Promise((resolve, reject) => {
     apolloClient
@@ -77,9 +89,8 @@ export const updatePost = (updatedPost) => {
         },
         update: (cache, { data: { updatePost } }) => {
           const { posts } = cache.readQuery({ query: GET_POSTS });
-          const index = posts.findIndex((post) => post.id === updatePost.id);
+          const index = posts.findIndex(post => post.id === updatePost.id);
           posts[index] = updatePost;
-          console.log(posts);
           cache.writeQuery({
             query: GET_POSTS,
             data: { posts },
@@ -95,6 +106,10 @@ export const updatePost = (updatedPost) => {
   });
 };
 
+/**
+  * @param {String} id
+  * @returns {Promise}
+ */
 export const getPostById = id => {
   return new Promise((resolve, reject) => {
     apolloClient.mutate({
@@ -110,6 +125,9 @@ export const getPostById = id => {
   });
 };
 
+/**
+  * @returns {Promise}
+*/
 export const getPosts = () => {
   return new Promise((resolve, reject) => {
     apolloClient.query({
