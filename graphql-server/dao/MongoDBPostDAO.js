@@ -23,12 +23,14 @@ export default class MongoDBPostDAO extends PostDAO {
         .sort('-date'))
         .then((result) => {
           resolve(result);
-          mongoose.connection.close();
         })
         .catch((error) => {
           reject(error);
+        })
+        .finally(() => {
           mongoose.connection.close();
-        });
+        })
+      ;
     });
   }
 
@@ -44,10 +46,11 @@ export default class MongoDBPostDAO extends PostDAO {
       })
         .then((result) => {
           resolve(result);
-          mongoose.connection.close();
         })
         .catch((error) => {
           reject(error);
+        })
+        .finally(() => {
           mongoose.connection.close();
         });
     });
@@ -63,10 +66,11 @@ export default class MongoDBPostDAO extends PostDAO {
         .findByIdAndRemove(id))
         .then((result) => {
           resolve(result);
-          mongoose.connection.close();
         })
         .catch((error) => {
           reject(error);
+        })
+        .finally(() => {
           mongoose.connection.close();
         });
     });
@@ -90,10 +94,11 @@ export default class MongoDBPostDAO extends PostDAO {
         ))
         .then((result) => {
           resolve(result);
-          mongoose.connection.close();
         })
         .catch((error) => {
           reject(error);
+        })
+        .finally(() => {
           mongoose.connection.close();
         });
     });
@@ -109,10 +114,11 @@ export default class MongoDBPostDAO extends PostDAO {
         .findOne({ _id: id }))
         .then((result) => {
           resolve(result);
-          mongoose.connection.close();
         })
         .catch((error) => {
           reject(error);
+        })
+        .finally(() => {
           mongoose.connection.close();
         });
     });
