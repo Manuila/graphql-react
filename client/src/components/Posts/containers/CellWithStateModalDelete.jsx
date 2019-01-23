@@ -1,17 +1,26 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Mutation } from 'react-apollo';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import Button from '../../../common/Button/Button';
 import PopupWindow from '../../../common/Modal/PopupWindow';
 import ModalStateContainer from '../../../common/Modal/containers/ModalStateContainer';
-import { DELETE_POST, GET_POSTS } from '../../../api/posts';
-
+import { deletePost } from '../../../apollo';
 
 class CellWithStateModalDelete extends PureComponent {
 
+  delete = async () => {
+    const { id, toggleIsOpenModal } = this.props;
+    try {
+      await deletePost(id);
+    } catch (e) {
+      throw e;
+    } finally {
+      toggleIsOpenModal(false);
+    }
+  };
+
   render() {
-    const { isOpenModal, toggleIsOpenModal, id } = this.props;
+    const { isOpenModal, toggleIsOpenModal } = this.props;
     return (
       <td className="table-posts__cell table-posts__cell-body">
         <Button
@@ -23,29 +32,15 @@ class CellWithStateModalDelete extends PureComponent {
         </Button>
         {
           isOpenModal &&
-          <Mutation
-            mutation={DELETE_POST}
-            update={(cache, { data: { removePost } }) => {
-              const { posts } = cache.readQuery({ query: GET_POSTS });
-              cache.writeQuery({
-                query: GET_POSTS,
-                data: { posts },
-                //data: { posts: posts.concat([removePost]) },
-              });
-            }}
-            >
-            {removePost => (
-              <PopupWindow
-                hasCloseIcon
-                className="modal-modal"
-                title="Are you serious?"
-                primaryButtonLabel="Ok"
-                primaryButtonAction={() => removePost(id)}
-                secondaryButtonLabel="Cancel"
-                secondaryButtonAction={() => toggleIsOpenModal(false)}
-              />
-              )}
-          </Mutation>
+          <PopupWindow
+            hasCloseIcon
+            className="modal-modal"
+            title="Are you serious?"
+            primaryButtonLabel="Ok"
+            primaryButtonAction={() => this.delete()}
+            secondaryButtonLabel="Cancel"
+            secondaryButtonAction={() => toggleIsOpenModal(false)}
+          />
         }
       </td>
     );

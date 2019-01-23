@@ -25,7 +25,7 @@ export const ADD_POST = gql`
   }`;
 
 export const DELETE_POST = gql`
- mutation removePost($id: String!) {
+ mutation removePost($id: ID!) {
     removePost(id: $id) {
       id
       title
@@ -35,3 +35,27 @@ export const DELETE_POST = gql`
       isLiked
     }
   }`;
+
+export const UPDATE_POST = gql`
+ mutation updatePost($id: ID!, $title: String!, $description: String!, $isPublished: Boolean!, $isLiked: Boolean!) {
+  updatePost(id: $id, title: $title, description: $description, isPublished: $isPublished, isLiked: $isLiked) {
+    id
+    title
+    description
+    date
+    isPublished
+    isLiked
+  }
+}`;
+
+export const GET_POST_BY_ID = gql`
+ mutation getPostById($id: ID!) {
+  getPostById(id: $id) {
+    id
+    title
+    description
+    date
+    isPublished
+    isLiked
+   }
+ }`;

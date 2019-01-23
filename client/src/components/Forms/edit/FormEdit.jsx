@@ -1,11 +1,10 @@
 import React, { PureComponent, Fragment, createRef } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import PopupWindow from '../../../common/Modal/PopupWindow';
 import Overlay from '../../../common/Overlay/Overlay';
-import { getPost, updatePost } from '../../../actions/posts';
 import Spinner from '../../../common/Spinner/Spinner';
+import { getPostById, updatePost } from '../../../apollo';
 
 import './form-edit.scss';
 
@@ -14,7 +13,6 @@ class FormEdit extends PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
     toggleIsOpen: PropTypes.func.isRequired,
-    dispatchUpdatePost: PropTypes.func.isRequired,
   };
 
   state = {
@@ -30,7 +28,7 @@ class FormEdit extends PureComponent {
     const { id } = this.props;
     this.toggleIsLoading(true);
     try {
-      const post = await getPost(id);
+      const post = await getPostById(id);
       this.setPost(Map(post));
     } catch (e) {
       throw e;
@@ -52,7 +50,7 @@ class FormEdit extends PureComponent {
 
   updatePost = async () => {
     const { post } = this.state;
-    const { toggleIsOpen, dispatchUpdatePost } = this.props;
+    const { toggleIsOpen } = this.props;
     const title = this.titleInput.current.value;
     const description = this.descriptionInput.current.value;
     const updatedPost = post
@@ -60,7 +58,7 @@ class FormEdit extends PureComponent {
       .set('description', description);
     this.toggleIsLoading(true);
     try {
-      await dispatchUpdatePost(updatedPost);
+      await updatePost(updatedPost);
     } catch (e) {
       throw e;
     } finally {
@@ -124,8 +122,4 @@ class FormEdit extends PureComponent {
   }
 }
 
-const mapDispatchToProps = {
-  dispatchUpdatePost: updatePost,
-};
-
-export default connect(null, mapDispatchToProps)(FormEdit);
+export default FormEdit;

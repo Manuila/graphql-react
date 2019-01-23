@@ -6,26 +6,29 @@ import PostHeader from './__header/PostHeader';
 import { DEFAULT_POSTS_COUNT } from './posts.costants';
 import { GET_POSTS } from '../../api/posts';
 import Spinner from '../../common/Spinner/Spinner';
+import { updatePost } from '../../apollo';
 
 import './posts.scss';
 
 
 class Posts extends Component {
-  /**
-   * @param {Immutable.Map} post
-   * */
-  updatePost = async (post) => post;
-
-  /* eslint-disable no-param-reassign */
-  /**
-   * @param {Immutable.Map} post
-   * */
-  handlePostPublished = async (post) => post;
 
   /**
    * @param {Immutable.Map} post
    * */
-  handlePostLiked = async (post) => post;
+  handlePostPublished = async (post) => {
+    const updatedPost = post.update('isPublished', isPublished => !isPublished);
+    await updatePost(updatedPost);
+
+  };
+
+  /**
+   * @param {Immutable.Map} post
+   * */
+  handlePostLiked = async (post) => {
+    const updatedPost = post.update('isLiked', isLiked => !isLiked);
+    await updatePost(updatedPost);
+  };
 
   refreshPosts = async () => null;
 

@@ -1,10 +1,9 @@
 import React, { PureComponent, createRef, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Mutation } from 'react-apollo';
 import PopupWindow from '../../../common/Modal/PopupWindow';
 import Overlay from '../../../common/Overlay/Overlay';
 import Spinner from '../../../common/Spinner/Spinner';
-import { ADD_POST, GET_POSTS } from '../../../api/posts';
+import { addPost } from '../../../apollo';
 
 import './form-add.scss';
 
@@ -31,17 +30,27 @@ class FormAdd extends PureComponent {
    * */
   toggleIsLoading = isLoading => this.setState({ isLoading });
 
-  onSubmit = (e, addPost) => {
-    e.preventDefault();
+  addPost = async () => {
     const { toggleIsOpen } = this.props;
-    addPost({
-      variables: {
-        title: this.titleInput.current.value,
-        description: this.descriptionInput.current.value,
-      },
-    });
-    toggleIsOpen(false);
+    const title = this.titleInput.current.value;
+    const description = this.descriptionInput.current.value;
+    this.toggleIsLoading(true);
+    try {
+      await addPost(title, description);
+    } catch (e) {
+      throw e;
+    } finally {
+      toggleIsOpen(false);
+      this.toggleIsLoading(false);
+    }
   };
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    this.addPost();
+  };
+
+
 
   render() {
     const { toggleIsOpen } = this.props;
@@ -57,52 +66,39 @@ class FormAdd extends PureComponent {
             </Overlay>
           )
           : (
-            <Mutation
-              mutation={ADD_POST}
-              update={(cache, { data: { addPost } }) => {
-                const { posts } = cache.readQuery({ query: GET_POSTS });
-                cache.writeQuery({
-                  query: GET_POSTS,
-                  data: { posts: posts.concat([addPost]) },
-                });
-              }}
+            <PopupWindow
+              className="modal-modal"
+              title="Add post"
+              hasCloseIcon
+              primaryButtonLabel="Ok"
+              primaryButtonAction={this.onSubmit}
+              secondaryButtonLabel="Cancel"
+              secondaryButtonAction={() => toggleIsOpen(false)}
             >
-              {addPost => (
-                <PopupWindow
-                  className="modal-modal"
-                  title="Add post"
-                  hasCloseIcon
-                  primaryButtonLabel="Ok"
-                  primaryButtonAction={e => this.onSubmit(e, addPost)}
-                  secondaryButtonLabel="Cancel"
-                  secondaryButtonAction={() => toggleIsOpen(false)}
-                >
-                  <form
-                    className="form-add"
-                    onSubmit={e => this.onSubmit(e, addPost)}
-                  >
-                    <div className="form-add__row">
-                      <input
-                        className="form-add-input"
-                        ref={this.titleInput}
-                        placeholder="title"
-                        required
-                        aria-required="true"
-                      />
-                    </div>
-                    <div className="form-add__row">
-                      <textarea
-                        className="form-add-textarea"
-                        rows="5"
-                        name="text"
-                        ref={this.descriptionInput}
-                        placeholder="description"
-                      />
-                    </div>
-                  </form>
-                </PopupWindow>
-              )}
-            </Mutation>
+              <form
+                className="form-add"
+                onSubmit={this.onSubmit}
+              >
+                <div className="form-add__row">
+                  <input
+                    className="form-add-input"
+                    ref={this.titleInput}
+                    placeholder="title"
+                    required
+                    aria-required="true"
+                  />
+                </div>
+                <div className="form-add__row">
+                  <textarea
+                    className="form-add-textarea"
+                    rows="5"
+                    name="text"
+                    ref={this.descriptionInput}
+                    placeholder="description"
+                  />
+                </div>
+              </form>
+            </PopupWindow>
           )
         }
       </Fragment>
