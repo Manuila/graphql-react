@@ -4,9 +4,10 @@ import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import Button from '../../../common/Button/Button';
 import PopupWindow from '../../../common/Modal/PopupWindow';
 import ModalStateContainer from '../../../common/Modal/containers/ModalStateContainer';
-import { deletePost } from '../../../apollo';
+import { deletePost } from '../../../actions';
 
-class CellWithStateModalDelete extends PureComponent {
+
+class CellWithButtonDelete extends PureComponent {
 
   delete = async () => {
     const { id, toggleIsOpenModal } = this.props;
@@ -47,10 +48,10 @@ class CellWithStateModalDelete extends PureComponent {
   }
 }
 
-CellWithStateModalDelete.propTypes = {
+CellWithButtonDelete.propTypes = {
   id: PropTypes.string.isRequired,
   toggleIsOpenModal: PropTypes.func.isRequired,
   isOpenModal: PropTypes.bool.isRequired,
 };
 
-export default ModalStateContainer(CellWithStateModalDelete);
+export default ModalStateContainer(CellWithButtonDelete);

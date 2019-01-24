@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { ApolloProvider } from 'react-apollo';
 import Posts from './components/Posts/Posts';
 import MainLayout from './common/MainLayout/MainLayout';
-import { apolloClient } from './apollo'
+import { apolloClient } from './actions'
 
 import './main.scss';
 

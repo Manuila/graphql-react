@@ -6,7 +6,7 @@ import PostHeader from './__header/PostHeader';
 import { DEFAULT_POSTS_COUNT } from './posts.costants';
 import { GET_POSTS } from '../../api/posts';
 import Spinner from '../../common/Spinner/Spinner';
-import { updatePost } from '../../apollo';
+import { updatePost } from '../../actions';
 
 import './posts.scss';
 
@@ -36,8 +36,8 @@ class Posts extends Component {
     return (
       <article className="todo-component">
         <div className="todo-component__wrapper">
-          <PostHeader />
-          <Query query={GET_POSTS}>
+          <PostHeader label='posts'/>
+          <Query query={GET_POSTS} variables={{ limit: 10, skip: 2 }}>
             {({ loading, error, data }) => {
               if (loading) {
                 return <Spinner />;

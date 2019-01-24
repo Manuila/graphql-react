@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
 
-import CellWithStateModalDelete from '../containers/CellWithStateModalDelete';
-import CellWithStateModalEdit from '../containers/CellWithStateModalEdit';
+import CellWithButtonDelete from '../containers/CellWithButtonDelete';
+import CellWithButtonEdit from '../containers/CellWithButtonEdit';
 import Button from '../../../common/Button/Button';
 
 
@@ -63,10 +63,10 @@ class Post extends PureComponent {
             IconClassName={classNames('icon-like', { 'icon-like_active': isLiked })}
           />
         </td>
-        <CellWithStateModalDelete
+        <CellWithButtonDelete
           id={id}
         />
-        <CellWithStateModalEdit
+        <CellWithButtonEdit
           id={id}
         />
       </tr>

@@ -6,7 +6,7 @@ import FormEdit from '../../Forms/edit/FormEdit';
 import ModalStateContainer from '../../../common/Modal/containers/ModalStateContainer';
 
 
-function CellWithStateModalEdit({
+function CellWithButtonEdit({
   toggleIsOpenModal,
   isOpenModal,
   id,
@@ -33,9 +33,9 @@ function CellWithStateModalEdit({
   );
 }
 
-CellWithStateModalEdit.propTypes = {
+CellWithButtonEdit.propTypes = {
   id: PropTypes.string.isRequired,
   toggleIsOpenModal: PropTypes.func.isRequired,
   isOpenModal: PropTypes.bool.isRequired,
 };
-export default ModalStateContainer(CellWithStateModalEdit);
+export default ModalStateContainer(CellWithButtonEdit);

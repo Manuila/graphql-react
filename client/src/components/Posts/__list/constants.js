@@ -5,7 +5,7 @@ const TABLE_TITLE = [
   'Creation Date',
   'Publish',
   'Like',
-  'Action',
+  'Actions',
 ];
 
 export default TABLE_TITLE;

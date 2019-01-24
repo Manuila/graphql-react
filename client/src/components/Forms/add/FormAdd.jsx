@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import PopupWindow from '../../../common/Modal/PopupWindow';
 import Overlay from '../../../common/Overlay/Overlay';
 import Spinner from '../../../common/Spinner/Spinner';
-import { addPost } from '../../../apollo';
+import { addPost } from '../../../actions';
 
 import './form-add.scss';
 

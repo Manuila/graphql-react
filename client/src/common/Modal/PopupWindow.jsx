@@ -48,7 +48,6 @@ class PopupWindow extends Component {
     const keys = {
       27: () => {
         e.preventDefault();
-        // onCloseRequest();
         secondaryButtonAction();
         window.removeEventListener('keyup', this.handleKeyUp, false);
       },

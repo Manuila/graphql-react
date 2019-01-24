@@ -12,6 +12,18 @@ export const GET_POSTS = gql`
     }
   }`;
 
+export const GET_LIMIT_POSTS = gql`
+  query getPosts($limit: Int!, $skip: Int!) {
+    posts(limit: $limit, skip: $skip) {
+      id
+      title
+      description
+      date
+      isPublished
+      isLiked
+    }
+  }`;
+
 export const ADD_POST = gql`
   mutation addPost($title: String!, $description: String) {
     addPost(title: $title, description: $description) {

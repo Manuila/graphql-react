@@ -6,7 +6,7 @@ import FormAdd from '../../../Forms/add/FormAdd';
 import ModalStateContainer from '../../../../common/Modal/containers/ModalStateContainer';
 
 
-class PostHeaderButtonWithStateModalEdit extends PureComponent {
+class PostHeaderButtonEdit extends PureComponent {
   static propTypes = {
     toggleIsOpenModal: PropTypes.func.isRequired,
     isOpenModal: PropTypes.bool.isRequired,
@@ -33,4 +33,4 @@ class PostHeaderButtonWithStateModalEdit extends PureComponent {
   }
 }
 
-export default ModalStateContainer(PostHeaderButtonWithStateModalEdit);
+export default ModalStateContainer(PostHeaderButtonEdit);
