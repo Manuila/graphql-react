@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment, createRef } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 
@@ -19,11 +19,9 @@ class FormEdit extends PureComponent {
   state = {
     post: Map(),
     isLoading: false,
+    titleValue: '',
+    descriptionValue: '',
   };
-
-  titleInput = createRef();
-
-  descriptionInput = createRef();
 
   async componentDidMount() {
     const { id } = this.props;
@@ -35,10 +33,23 @@ class FormEdit extends PureComponent {
       throw e;
     } finally {
       this.toggleIsLoading(false);
-      if (this.titleInput) this.titleInput.current.focus();
+      if (this.titleInput) this.titleInput.focus();
     }
   }
 
+  /**
+   * @param {Event} event
+   */
+  handleTitleValueChange = (event) => {
+    this.setState({ titleValue: event.target.value });
+  };
+
+  /**
+   * @param {Event} event
+   */
+  handleDescriptionValueChange = (event) => {
+    this.setState({ descriptionValue: event.target.value });
+  };
   /**
    * @param {boolean} isLoading
    * */
@@ -68,13 +79,18 @@ class FormEdit extends PureComponent {
     }
   };
 
-  onSubmit = (e) => {
-    e.preventDefault();
+  /**
+   * @param {Event} event
+   */
+  onSubmit = (event) => {
+    event.preventDefault();
     this.updatePost();
-  }
+  };
 
   render() {
-    const { isLoading, post } = this.state;
+    const {
+      isLoading, post, titleValue, descriptionValue,
+    } = this.state;
     const { toggleIsOpen } = this.props;
     return (
       <Fragment>
@@ -99,18 +115,21 @@ class FormEdit extends PureComponent {
               <form className="form-edit" onSubmit={this.onSubmit}>
                 <div className="form-edit__row">
                   <input
+                    value={titleValue}
+                    onChange={this.handleTitleValueChange}
+                    ref={(input) => { this.titleInput = input; }}
                     required
                     className="form-edit-input"
-                    ref={this.titleInput}
                     defaultValue={post.get('title')}
                   />
                 </div>
                 <div className="form-edit__row">
                   <textarea
+                    value={descriptionValue}
+                    onChange={this.handleDescriptionValueChange}
                     className="form-edit-textarea"
                     rows="5"
                     name="text"
-                    ref={this.descriptionInput}
                     defaultValue={post.get('description')}
                   />
                 </div>

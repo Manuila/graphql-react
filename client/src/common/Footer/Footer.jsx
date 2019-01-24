@@ -8,10 +8,7 @@ const Footer = ({ children, className }) => (
 );
 
 Footer.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.string,
-  ]).isRequired,
+  children: PropTypes.node.isRequired,
   className: PropTypes.string,
 };
 

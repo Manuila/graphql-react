@@ -1,22 +1,17 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-export default class ModalContainer extends PureComponent {
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-  };
+const ModalContainer  = ({children}) => (
+  ReactDOM.createPortal(
+    <div>
+      {children}
+    </div>,
+    document.body,
+  )
+);
 
-  render() {
-    const {
-      children,
-    } = this.props;
+ModalContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
-    return ReactDOM.createPortal(
-      <div>
-        {children}
-      </div>,
-      document.body,
-    );
-  }
-}
