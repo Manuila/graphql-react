@@ -1,9 +1,10 @@
 import React, { PureComponent, createRef, Fragment } from 'react';
 import PropTypes from 'prop-types';
+
+import { addPost } from '../../../actions';
 import PopupWindow from '../../../common/Modal/PopupWindow';
 import Overlay from '../../../common/Overlay/Overlay';
 import Spinner from '../../../common/Spinner/Spinner';
-import { addPost } from '../../../actions';
 
 import './form-add.scss';
 

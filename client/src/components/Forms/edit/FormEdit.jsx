@@ -1,10 +1,11 @@
 import React, { PureComponent, Fragment, createRef } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
+
+import { getPostById, updatePost } from '../../../actions';
 import PopupWindow from '../../../common/Modal/PopupWindow';
 import Overlay from '../../../common/Overlay/Overlay';
 import Spinner from '../../../common/Spinner/Spinner';
-import { getPostById, updatePost } from '../../../actions';
 
 import './form-edit.scss';
 

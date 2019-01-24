@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import dateFormat from 'dateformat';
 import { List } from 'immutable';
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+
+import { DEFAULT_POSTS_COUNT } from '../posts.costants';
 import Post from '../__item/PostItem';
 import Button from '../../../common/Button/Button';
 import TABLE_TITLE from './constants';
-import { DEFAULT_POSTS_COUNT } from '../posts.costants';
 
 
 /* eslint-disable react/no-array-index-key */
 class PostsList extends PureComponent {
+
   state = { isUpdating: false };
 
   onUpdating = async () => {
@@ -100,6 +102,7 @@ class PostsList extends PureComponent {
     );
   }
 }
+
 PostsList.propTypes = {
   posts: PropTypes.instanceOf(List).isRequired,
   onPostLiked: PropTypes.func.isRequired,

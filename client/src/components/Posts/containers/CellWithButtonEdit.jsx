@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
+
 import Button from '../../../common/Button/Button';
 import FormEdit from '../../Forms/edit/FormEdit';
 import ModalStateContainer from '../../../common/Modal/containers/ModalStateContainer';
@@ -38,4 +39,5 @@ CellWithButtonEdit.propTypes = {
   toggleIsOpenModal: PropTypes.func.isRequired,
   isOpenModal: PropTypes.bool.isRequired,
 };
+
 export default ModalStateContainer(CellWithButtonEdit);

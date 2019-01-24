@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
+
+import { deletePost } from '../../../actions';
 import Button from '../../../common/Button/Button';
 import PopupWindow from '../../../common/Modal/PopupWindow';
 import ModalStateContainer from '../../../common/Modal/containers/ModalStateContainer';
-import { deletePost } from '../../../actions';
+
 
 
 class CellWithButtonDelete extends PureComponent {

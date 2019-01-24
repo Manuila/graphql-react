@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { fromJS } from 'immutable';
 import { Query } from 'react-apollo';
-import PostsList from './__list/PostsList';
-import PostHeader from './__header/PostHeader';
+
 import { DEFAULT_POSTS_COUNT } from './posts.costants';
 import { GET_POSTS } from '../../api/posts';
-import Spinner from '../../common/Spinner/Spinner';
 import { updatePost } from '../../actions';
+import PostsList from './__list/PostsList';
+import PostHeader from './__header/PostHeader';
+import Spinner from '../../common/Spinner/Spinner';
 
 import './posts.scss';
 
 
-class Posts extends Component {
+class Posts extends PureComponent {
 
   /**
    * @param {Immutable.Map} post
@@ -37,7 +38,7 @@ class Posts extends Component {
       <article className="todo-component">
         <div className="todo-component__wrapper">
           <PostHeader label='posts'/>
-          <Query query={GET_POSTS} variables={{ limit: 10, skip: 2 }}>
+          <Query query={GET_POSTS}>
             {({ loading, error, data }) => {
               if (loading) {
                 return <Spinner />;
