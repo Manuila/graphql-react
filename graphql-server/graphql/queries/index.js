@@ -1,12 +1,6 @@
 import { GraphQLObjectType, GraphQLList }  from 'graphql';
 import postType from '../types';
-import config from '../../config';
-import MongoDBPostDAO from '../../dao/MongoDBPostDAO';
-import PostService from '../../services/PostService';
-
-
-const postDAO = new MongoDBPostDAO(config.MONGO_URI);
-const postService = new PostService(postDAO);
+import postService from '../common';
 
 const queryType = new GraphQLObjectType({
   name: 'Query',

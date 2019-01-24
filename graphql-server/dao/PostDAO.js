@@ -32,11 +32,9 @@ export default class PostDAO {
   }
 
   /**
-   * @param {number} limit
-   * @param {number} skip
    * @return {Promise}
    */
-  getAll(limit, skip) {
+  getAll() {
     throw new Error('Not implemented');
   }
 }

@@ -1,12 +1,6 @@
-import {GraphQLNonNull, GraphQLString, GraphQLBoolean, GraphQLID} from 'graphql';
+import { GraphQLNonNull, GraphQLString, GraphQLBoolean, GraphQLID } from 'graphql';
 import PostType from '../types';
-import MongoDBPostDAO from '../../dao/MongoDBPostDAO';
-import PostService from '../../services/PostService';
-import config from '../../config';
-
-
-const postDAO = new MongoDBPostDAO(config.MONGO_URI);
-const postService = new PostService(postDAO);
+import postService from '../common';
 
 
 const addPost = {

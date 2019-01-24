@@ -6,9 +6,9 @@ import {
   GraphQLBoolean
 }  from 'graphql';
 
-import { GraphQLDate } from 'graphql-iso-date';
+import { GraphQLDateTime } from 'graphql-iso-date';
 
-// Post Type
+
 const postType = new GraphQLObjectType({
   name: 'post',
   fields: () => {
@@ -16,7 +16,7 @@ const postType = new GraphQLObjectType({
       id: { type: new GraphQLNonNull(GraphQLID) },
       title: { type: new GraphQLNonNull(GraphQLString) },
       description: { type: GraphQLString },
-      date: { type: new GraphQLNonNull(GraphQLDate) },
+      date: { type: new GraphQLNonNull(GraphQLDateTime) },
       isPublished: { type: new GraphQLNonNull(GraphQLBoolean) },
       isLiked: { type: new GraphQLNonNull(GraphQLBoolean) },
     };
