@@ -4,11 +4,11 @@ import Button from '../../Button/Button';
 
 
 class PopupWindowFooter extends PureComponent {
+  button = createRef();
+
   componentDidMount() {
     if (this.button) this.button.current.focus();
   }
-
-  button = createRef();
 
   render() {
     const {
@@ -37,6 +37,7 @@ class PopupWindowFooter extends PureComponent {
     );
   }
 }
+
 PopupWindowFooter.propTypes = {
   primaryButtonAction: PropTypes.func.isRequired,
   primaryButtonLabel: PropTypes.string.isRequired,

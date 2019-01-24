@@ -31,6 +31,8 @@ class PopupWindow extends Component {
     children: null,
   };
 
+  modal = createRef();
+
   componentDidMount() {
     window.addEventListener('keyup', this.handleKeyUp, false);
     document.addEventListener('click', this.handleOutsideClick, false);
@@ -40,8 +42,6 @@ class PopupWindow extends Component {
     window.removeEventListener('keyup', this.handleKeyUp, false);
     document.removeEventListener('click', this.handleOutsideClick, false);
   }
-
-  modal = createRef();
 
   handleKeyUp = (e) => {
     const { secondaryButtonAction } = this.props;

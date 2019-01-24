@@ -15,4 +15,5 @@ const ModalStateContainer = WrappedComponent => class extends PureComponent {
       );
     }
 };
+
 export default ModalStateContainer;
