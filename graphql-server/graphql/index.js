@@ -1,9 +1,12 @@
 import { GraphQLSchema, GraphQLObjectType } from 'graphql';
-import queryType from './queries';
+import query from './queries';
 import mutation from './mutations';
 
 const postSchema = new GraphQLSchema({
-  query: queryType,
+  query: new GraphQLObjectType({
+    name: 'Query',
+    fields: query,
+  }),
   mutation: new GraphQLObjectType({
     name: 'Mutation',
     fields: mutation,

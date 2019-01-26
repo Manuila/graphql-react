@@ -48,7 +48,7 @@ class Posts extends PureComponent {
               }
               return (
                 <PostsList
-                  posts={fromJS(data.posts)}
+                  posts={fromJS(data.getAllPosts)}
                   onPostLiked={this.handlePostLiked}
                   onPostPublished={this.handlePostPublished}
                   refreshPosts={this.refreshPosts}

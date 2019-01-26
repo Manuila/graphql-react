@@ -25,10 +25,10 @@ export const deletePost = id => {
         mutation: DELETE_POST,
         variables: { id },
         update: (cache, { data: { removePost } }) => {
-          const { posts } = cache.readQuery({ query: GET_POSTS });
+          const { getAllPosts } = cache.readQuery({ query: GET_POSTS });
           cache.writeQuery({
             query: GET_POSTS,
-            data: { posts: posts.filter(post => post.id !== removePost.id) },
+            data: { getAllPosts: getAllPosts.filter(post => post.id !== removePost.id) },
           });
         }
       })
@@ -55,10 +55,10 @@ export const addPost = (title, description) => {
           description,
         },
         update: (cache, { data: { addPost } }) => {
-          const { posts } = cache.readQuery({ query: GET_POSTS });
+          const { getAllPosts } = cache.readQuery({ query: GET_POSTS });
           cache.writeQuery({
             query: GET_POSTS,
-            data: { posts: [addPost].concat(posts) },
+            data: { getAllPosts: [addPost].concat(getAllPosts) },
           });
         },
       })
@@ -88,12 +88,12 @@ export const updatePost = (updatedPost) => {
           isLiked: updatedPost.get('isLiked'),
         },
         update: (cache, { data: { updatePost } }) => {
-          const { posts } = cache.readQuery({ query: GET_POSTS });
-          const index = posts.findIndex(post => post.id === updatePost.id);
-          posts[index] = updatePost;
+          const { getAllPosts } = cache.readQuery({ query: GET_POSTS });
+          const index = getAllPosts.findIndex(post => post.id === updatePost.id);
+          getAllPosts[index] = updatePost;
           cache.writeQuery({
             query: GET_POSTS,
-            data: { posts },
+            data: { getAllPosts },
           });
         }
       })
@@ -112,8 +112,8 @@ export const updatePost = (updatedPost) => {
  */
 export const getPostById = id => {
   return new Promise((resolve, reject) => {
-    apolloClient.mutate({
-      mutation: GET_POST_BY_ID,
+    apolloClient.query({
+      query: GET_POST_BY_ID,
       variables: { id }
     })
       .then((result) => {

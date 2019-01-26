@@ -35,18 +35,8 @@ const updatePost = {
   resolve: (root, params) => postService.update(params)
 };
 
-const getPostById = {
-  type: PostType,
-  args: {
-    id: { type: new GraphQLNonNull(GraphQLID) }
-  },
-
-  resolve: (root, params) => postService.getById(params.id)
-};
-
 export default {
   addPost,
   removePost,
   updatePost,
-  getPostById,
 };

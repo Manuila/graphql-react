@@ -1,17 +1,21 @@
-import { GraphQLObjectType, GraphQLList }  from 'graphql';
+import { GraphQLNonNull, GraphQLList, GraphQLID }  from 'graphql';
 import postType from '../types';
 import postService from '../common';
 
-const queryType = new GraphQLObjectType({
-  name: 'Query',
-  fields: () => {
-    return {
-      posts: {
-        type: new GraphQLList(postType),
-        resolve: () => postService.getAll()
-      }
-    };
-  }
-});
+const getAllPosts = {
+  type: new GraphQLList(postType),
+  resolve: () => postService.getAll()
+};
 
-export default queryType;
+const getPostById = {
+  type: postType,
+  args: {
+    id: { type: new GraphQLNonNull(GraphQLID) }
+  },
+  resolve: (root, params) => postService.getById(params.id)
+};
+       
+export default { 
+  getAllPosts,
+  getPostById,
+};

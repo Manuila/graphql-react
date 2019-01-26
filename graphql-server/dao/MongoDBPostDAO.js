@@ -84,7 +84,7 @@ export default class MongoDBPostDAO extends PostDAO {
       this.connect.then(() => Post
         .findByIdAndUpdate(
           post.id,
-          { 
+          {
             $set: {
               title: post.title,
               description: post.description,

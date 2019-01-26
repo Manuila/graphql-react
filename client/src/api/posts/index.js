@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export const GET_POSTS = gql`
   query {
-    posts {
+    getAllPosts {
       id
       title
       description
@@ -12,6 +12,18 @@ export const GET_POSTS = gql`
     }
   }`;
 
+export const GET_POST_BY_ID = gql`
+  query getPostById($id: ID!) {
+    getPostById(id: $id) {
+      id
+      title
+      description
+      date
+      isPublished
+      isLiked
+    }
+  }`;
+  
 export const GET_LIMIT_POSTS = gql`
   query getPosts($limit: Int!, $skip: Int!) {
     posts(limit: $limit, skip: $skip) {
@@ -60,14 +72,3 @@ export const UPDATE_POST = gql`
   }
 }`;
 
-export const GET_POST_BY_ID = gql`
- mutation getPostById($id: ID!) {
-  getPostById(id: $id) {
-    id
-    title
-    description
-    date
-    isPublished
-    isLiked
-   }
- }`;

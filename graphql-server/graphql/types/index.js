@@ -10,7 +10,7 @@ import { GraphQLDateTime } from 'graphql-iso-date';
 
 
 const postType = new GraphQLObjectType({
-  name: 'post',
+  name: 'Post',
   fields: () => {
     return {
       id: { type: new GraphQLNonNull(GraphQLID) },
