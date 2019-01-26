@@ -61,12 +61,16 @@ Post.propTypes = {
   id: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   isPublished: PropTypes.bool.isRequired,
   onPostPublished: PropTypes.func.isRequired,
   isLiked: PropTypes.bool.isRequired,
   onPostLiked: PropTypes.func.isRequired,
+  description: PropTypes.string,
+};
+
+Post.defaultProps = {
+  description: null,
 };
 
 export default Post;

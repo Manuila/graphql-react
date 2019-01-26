@@ -50,6 +50,7 @@ class FormEdit extends PureComponent {
   handleDescriptionValueChange = (event) => {
     this.setState({ descriptionValue: event.target.value });
   };
+  
   /**
    * @param {boolean} isLoading
    * */
@@ -61,13 +62,11 @@ class FormEdit extends PureComponent {
   setPost = post => this.setState({ post });
 
   updatePost = async () => {
-    const { post } = this.state;
+    const { post, titleValue, descriptionValue } = this.state;
     const { toggleIsOpen } = this.props;
-    const title = this.titleInput.current.value;
-    const description = this.descriptionInput.current.value;
     const updatedPost = post
-      .set('title', title)
-      .set('description', description);
+      .set('title', titleValue)
+      .set('description', descriptionValue);
     this.toggleIsLoading(true);
     try {
       await updatePost(updatedPost);
@@ -115,7 +114,6 @@ class FormEdit extends PureComponent {
               <form className="form-edit" onSubmit={this.onSubmit}>
                 <div className="form-edit__row">
                   <input
-                    value={titleValue}
                     onChange={this.handleTitleValueChange}
                     ref={(input) => { this.titleInput = input; }}
                     required
@@ -125,7 +123,6 @@ class FormEdit extends PureComponent {
                 </div>
                 <div className="form-edit__row">
                   <textarea
-                    value={descriptionValue}
                     onChange={this.handleDescriptionValueChange}
                     className="form-edit-textarea"
                     rows="5"

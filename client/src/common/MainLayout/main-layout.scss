@@ -6,6 +6,12 @@
     background-color: #bfc3ce;
   }
 
+  &__title {
+    text-transform: uppercase;
+    text-align: center;
+    padding: 10px 0px;
+  }
+
   &__header, &__footer {
     flex-shrink: 0;
     color: #fff;

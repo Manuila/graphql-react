@@ -38,6 +38,7 @@ class FormAdd extends PureComponent {
   handleDescriptionValueChange = (event) => {
     this.setState({ descriptionValue: event.target.value });
   };
+
   /**
    * @param {boolean} isLoading
    * */
@@ -45,11 +46,10 @@ class FormAdd extends PureComponent {
 
   addPost = async () => {
     const { toggleIsOpen } = this.props;
-    const title = this.titleInput.current.value;
-    const description = this.descriptionInput.current.value;
+    const { titleValue, descriptionValue } = this.state;
     this.toggleIsLoading(true);
     try {
-      await addPost(title, description);
+      await addPost(titleValue, descriptionValue);
     } catch (e) {
       throw e;
     } finally {
